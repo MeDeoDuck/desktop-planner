@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self';" />
+  <title>더덕 플래너</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- 상단 드래그 바 + 창 컨트롤 (요구사항2) -->
+  <div class="titlebar" id="titlebar">
+    <div class="title">📖 더덕 플래너</div>
+    <div class="win-btns">
+      <button id="btnPin" class="winbtn" title="항상 위에 고정">📌</button>
+      <button id="btnMin" class="winbtn" title="최소화">—</button>
+      <button id="btnClose" class="winbtn close" title="닫기">✕</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- 캘린더 (요구사항4) -->
+    <section class="card calendar-card">
+      <div class="cal-head">
+        <button class="cal-nav" id="calPrev" title="이전 달">‹</button>
+        <div class="cal-title" id="calTitle">2026년 6월</div>
+        <button class="cal-nav" id="calNext" title="다음 달">›</button>
+      </div>
+      <div class="cal-weekdays">
+        <span class="sun">일</span><span>월</span><span>화</span>
+        <span>수</span><span>목</span><span>금</span><span class="sat">토</span>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+    </section>
+
+    <!-- 플래너 본문 (요구사항3) -->
+    <section class="card planner-card">
+      <div class="planner-head">
+        <div class="planner-date" id="plannerDate">날짜</div>
+        <div class="planner-actions">
+          <button id="btnEmoji" class="action-btn hidden" title="이모지 넣기">😀</button>
+          <button id="btnEdit" class="action-btn">✏️ 수정</button>
+          <button id="btnSave" class="action-btn primary hidden">💾 저장</button>
+          <button id="btnCancel" class="action-btn ghost hidden">취소</button>
+        </div>
+      </div>
+
+      <!-- 이모지 팔레트 (편집 모드 전용) -->
+      <div class="emoji-palette hidden" id="emojiPalette" aria-label="이모지 선택"></div>
+
+      <!-- 보기 모드 -->
+      <div class="planner-view" id="plannerView"></div>
+      <!-- 편집 모드 -->
+      <textarea class="planner-edit hidden" id="plannerEdit"
+                placeholder="오늘의 계획을 자유롭게 적어보세요 🥔&#10;예) ✅ 운동하기 / 📖 책 읽기 / 📌 2시 약속"></textarea>
+    </section>
+
+    <!-- 전역 메모 (날짜 무관, 항상 같은 내용 공유) -->
+    <section class="card memo-card">
+      <div class="memo-head">
+        <span class="memo-title">📝 메모</span>
+        <span class="memo-hint">날짜와 상관없이 항상 공유돼요</span>
+      </div>
+      <textarea class="memo-box" id="memoBox"
+                placeholder="자주 보는 메모를 적어두세요 (날짜 바꿔도 유지돼요) 🥔"></textarea>
+    </section>
+  </div>
+
+  <!-- 하단 좌우 화살표 (요구사항5) -->
+  <div class="footer-nav">
+    <button id="btnPrevDay" class="day-arrow" title="전날">◀</button>
+    <button id="btnToday" class="today-btn">오늘</button>
+    <button id="btnNextDay" class="day-arrow" title="다음날">▶</button>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

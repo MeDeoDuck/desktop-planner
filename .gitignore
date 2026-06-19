@@ -1,0 +1,7 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+
+# 개인 데이터 주입 스크립트 (공유 제외)
+seed-*.js

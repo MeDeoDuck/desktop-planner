@@ -1,0 +1,371 @@
+/* styles.css — 디자인 토큰 */
+:root {
+  --bg: #f7f5f0;
+  --card: #ffffff;
+  --accent: #c9954a;
+  --accent-dark: #a8772f;
+  --text: #2d2a26;
+  --muted: #6b665e;
+  --line: #e6e0d6;
+  --soft: #fff7ee;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  font-size: 14px;
+  overflow: hidden;
+  user-select: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- 상단 드래그 바 ---------- */
+.titlebar {
+  -webkit-app-region: drag;          /* 드래그로 창 이동 */
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px 8px 14px;
+  flex: 0 0 auto;
+  box-shadow: 0 2px 8px rgba(168, 119, 47, .25);
+}
+.titlebar .title { font-size: .95rem; font-weight: 600; }
+.win-btns {
+  -webkit-app-region: no-drag;       /* 버튼은 클릭 가능 */
+  display: flex;
+  gap: 6px;
+}
+.winbtn {
+  -webkit-app-region: no-drag;
+  width: 26px; height: 26px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .18);
+  color: #fff;
+  cursor: pointer;
+  font-size: .85rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s, transform .1s;
+}
+.winbtn:hover { background: rgba(255, 255, 255, .34); }
+.winbtn:active { transform: scale(.92); }
+.winbtn.close:hover { background: #d9534f; }
+.winbtn.pinned {
+  background: #fff;
+  color: var(--accent-dark);
+  box-shadow: 0 0 0 2px rgba(255,255,255,.5);
+}
+
+/* ---------- 본문 ---------- */
+.content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.content::-webkit-scrollbar { width: 8px; }
+.content::-webkit-scrollbar-thumb {
+  background: var(--line); border-radius: 8px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .04);
+  padding: 12px;
+}
+
+/* ---------- 캘린더 ---------- */
+.cal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.cal-title { font-weight: 600; font-size: .95rem; }
+.cal-nav {
+  border: 1px solid var(--line);
+  background: var(--bg);
+  border-radius: 8px;
+  width: 28px; height: 28px;
+  cursor: pointer;
+  color: var(--accent-dark);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.cal-nav:hover { background: var(--soft); }
+
+.cal-weekdays, .cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+.cal-weekdays {
+  margin-bottom: 4px;
+  text-align: center;
+  font-size: .72rem;
+  color: var(--muted);
+}
+.cal-weekdays .sun { color: #d9534f; }
+.cal-weekdays .sat { color: #4a90d9; }
+
+.cal-cell {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 9px;
+  font-size: .8rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background .12s, border .12s;
+}
+.cal-cell.empty { cursor: default; }
+.cal-cell:not(.empty):hover { background: var(--soft); }
+.cal-cell.today {
+  border-color: var(--accent);
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+.cal-cell.selected {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff;
+  font-weight: 700;
+}
+.cal-cell.sun:not(.selected) { color: #d9534f; }
+.cal-cell.sat:not(.selected) { color: #4a90d9; }
+/* 내용 있는 날짜 점 */
+.cal-cell .dot {
+  position: absolute;
+  bottom: 4px;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.cal-cell.selected .dot { background: #fff; }
+
+/* ---------- 플래너 ---------- */
+.planner-card { display: flex; flex-direction: column; }
+.planner-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 8px; gap: 8px;
+}
+.planner-date {
+  font-weight: 700; font-size: .98rem; color: var(--accent-dark);
+}
+.planner-actions { display: flex; gap: 6px; }
+.action-btn {
+  border: 1px solid var(--line);
+  background: var(--bg);
+  border-radius: 9px;
+  padding: 5px 10px;
+  font-size: .82rem;
+  cursor: pointer;
+  color: var(--text);
+  transition: background .12s, transform .1s;
+}
+.action-btn:hover { background: var(--soft); }
+.action-btn:active { transform: scale(.96); }
+.action-btn.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  color: #fff; border-color: transparent;
+}
+.action-btn.ghost { color: var(--muted); }
+
+.planner-view {
+  min-height: 140px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: .9rem;
+  color: var(--text);
+  user-select: text;
+}
+.planner-view.empty {
+  color: var(--muted);
+  font-style: italic;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 140px;
+  text-align: center;
+}
+.planner-edit {
+  width: 100%;
+  min-height: 180px;
+  resize: vertical;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  font-family: inherit;
+  font-size: .9rem;
+  color: var(--text);
+  background: var(--soft);
+  line-height: 1.6;
+  user-select: text;
+}
+.planner-edit:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(201, 149, 74, .15);
+}
+
+/* ---------- 전역 메모 (날짜 무관) ---------- */
+.memo-card { display: flex; flex-direction: column; }
+.memo-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 8px; margin-bottom: 8px;
+}
+.memo-title {
+  font-weight: 700; font-size: .92rem; color: var(--accent-dark);
+}
+.memo-hint {
+  font-size: .68rem; color: var(--muted); font-style: italic;
+}
+.memo-box {
+  width: 100%;
+  min-height: 72px;          /* 약 3~4줄 */
+  max-height: 160px;
+  resize: vertical;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 10px;
+  font-family: inherit;
+  font-size: .88rem;
+  color: var(--text);
+  background: var(--soft);
+  line-height: 1.55;
+  user-select: text;
+}
+.memo-box:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(201, 149, 74, .15);
+}
+.memo-box::-webkit-scrollbar { width: 8px; }
+.memo-box::-webkit-scrollbar-thumb {
+  background: var(--line); border-radius: 8px;
+}
+
+/* ---------- 하단 좌우 화살표 ---------- */
+.footer-nav {
+  flex: 0 0 auto;
+  display: flex; align-items: center; justify-content: center;
+  gap: 14px;
+  padding: 8px 12px 10px;
+  border-top: 1px solid var(--line);
+  background: var(--card);
+}
+.day-arrow {
+  border: 1px solid var(--line);
+  background: var(--bg);
+  border-radius: 10px;
+  width: 40px; height: 32px;
+  cursor: pointer;
+  color: var(--accent-dark);
+  font-size: 1rem;
+  transition: background .12s, transform .1s;
+}
+.day-arrow:hover { background: var(--soft); }
+.day-arrow:active { transform: scale(.94); }
+.today-btn {
+  border: 1px solid var(--accent);
+  background: var(--soft);
+  color: var(--accent-dark);
+  border-radius: 10px;
+  padding: 6px 16px;
+  font-size: .82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.today-btn:hover { background: #ffeed6; }
+
+/* ---------- 보기 모드 본문: 링크 + 체크박스 (작업 A/C) ---------- */
+.pl-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  min-height: 1.2em;
+}
+.pl-check-line { align-items: center; }
+
+/* 본문 링크: 감자색 + 밑줄 (작업 A) */
+.pl-link {
+  color: var(--accent-dark);
+  text-decoration: underline;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+.pl-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  background: var(--soft);
+  border-radius: 4px;
+}
+
+/* 체크박스 (작업 C) */
+.pl-checkbox {
+  accent-color: #c9954a;
+  width: 16px; height: 16px;
+  margin: 0;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+.pl-label { flex: 1 1 auto; }
+
+/* 완료 항목 취소선 (작업 C) */
+.done {
+  text-decoration: line-through;
+  color: var(--muted);
+  opacity: .7;
+}
+
+/* ---------- 이모지 피커 (편집 모드) ---------- */
+#btnEmoji { font-size: 1rem; line-height: 1; padding: 5px 9px; }
+#btnEmoji.active {
+  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+  border-color: transparent;
+}
+
+.emoji-palette {
+  margin-bottom: 8px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--soft);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .06);
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 2px;
+  max-height: 168px;
+  overflow-y: auto;
+}
+.emoji-palette::-webkit-scrollbar { width: 8px; }
+.emoji-palette::-webkit-scrollbar-thumb {
+  background: var(--line); border-radius: 8px;
+}
+.emoji-cell {
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  padding: 4px 0;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  cursor: pointer;
+  text-align: center;
+  transition: background .1s, transform .08s;
+}
+.emoji-cell:hover { background: #ffeed6; }
+.emoji-cell:active { transform: scale(.88); }
+
+.hidden { display: none !important; }
